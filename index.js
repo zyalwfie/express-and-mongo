@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const Product = require('./models/product');
 const app = express();
 
 mongoose
@@ -14,9 +15,16 @@ mongoose
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
 	res.render('index');
+});
+
+app.get('/products', async (req, res) => {
+	const products = await Product.find();
+
+	res.render('products', { products });
 });
 
 app.listen(3000, () => {
