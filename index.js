@@ -27,6 +27,24 @@ app.get('/products', async (req, res) => {
 	res.render('products', { products });
 });
 
+app.get('/products/create', (req, res) => {
+	res.render('create-product');
+});
+
+app.get('/products/:id', async (req, res) => {
+	try {
+		const product = await Product.findById(req.params.id);
+
+		if (!product) {
+			return res.status(404).render('miscellanous');
+		}
+
+		res.render('show-product', { product });
+	} catch (err) {
+		res.status(400).render('miscellanous');
+	}
+});
+
 app.listen(3000, () => {
 	console.log('App is running on http://localhost:3000');
 });
