@@ -106,6 +106,25 @@ app.put('/products/:id', async (req, res) => {
 	}
 });
 
+app.delete('/products/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const product = await Product.findByIdAndDelete(id);
+
+		if (!product) {
+			return res.status(404).render('miscellanous');
+		}
+
+		req.flash('success', 'Produk berhasil dihapus');
+		res.redirect(`/products`);
+	} catch (err) {
+		console.log(err);
+		req.flash('error', 'Gagal menghapus produk');
+		res.redirect(`/products`);
+	}
+});
+
 app.listen(3000, () => {
 	console.log('App is running on http://localhost:3000');
 });
