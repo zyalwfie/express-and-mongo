@@ -870,8 +870,20 @@
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
+  .top-5 {
+    top: calc(var(--spacing) * 5);
+  }
+  .top-20 {
+    top: calc(var(--spacing) * 20);
+  }
+  .top-24 {
+    top: calc(var(--spacing) * 24);
+  }
   .right-0 {
     right: calc(var(--spacing) * 0);
+  }
+  .right-5 {
+    right: calc(var(--spacing) * 5);
   }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
@@ -944,6 +956,12 @@
   }
   .ms-2 {
     margin-inline-start: calc(var(--spacing) * 2);
+  }
+  .ms-3 {
+    margin-inline-start: calc(var(--spacing) * 3);
+  }
+  .ms-auto {
+    margin-inline-start: auto;
   }
   .-me-0 {
     margin-inline-end: calc(var(--spacing) * -0);
@@ -1543,6 +1561,12 @@
   .w-6 {
     width: calc(var(--spacing) * 6);
   }
+  .w-7 {
+    width: calc(var(--spacing) * 7);
+  }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
   .w-10 {
     width: calc(var(--spacing) * 10);
   }
@@ -1566,6 +1590,9 @@
   }
   .max-w-screen-xl {
     max-width: var(--breakpoint-xl);
+  }
+  .max-w-sm {
+    max-width: var(--container-sm);
   }
   .max-w-xl {
     max-width: var(--container-xl);
@@ -1987,6 +2014,9 @@
   .bg-brand {
     background-color: var(--color-brand);
   }
+  .bg-danger-soft {
+    background-color: var(--color-danger-soft);
+  }
   .bg-dark {
     background-color: var(--color-dark);
   }
@@ -2061,6 +2091,9 @@
   }
   .bg-red-600 {
     background-color: var(--color-red-600);
+  }
+  .bg-success-soft {
+    background-color: var(--color-success-soft);
   }
   .bg-transparent {
     background-color: transparent;
@@ -2437,8 +2470,14 @@
   .text-fg-brand {
     color: var(--color-fg-brand);
   }
+  .text-fg-danger {
+    color: var(--color-fg-danger);
+  }
   .text-fg-disabled {
     color: var(--color-fg-disabled);
+  }
+  .text-fg-success {
+    color: var(--color-fg-success);
   }
   .text-gray-300 {
     color: var(--color-gray-300);
@@ -2594,6 +2633,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-800);
+      }
+    }
+  }
+  .hover\:bg-neutral-secondary-medium {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-neutral-secondary-medium);
       }
     }
   }

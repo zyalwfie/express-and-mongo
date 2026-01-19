@@ -1,5 +1,7 @@
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 const app = express();
@@ -13,9 +15,28 @@ mongoose
 		console.log(err);
 	});
 
+app.use(
+	session({
+		secret: 'secret',
+		resave: false,
+		saveUninitialized: true,
+	}),
+);
+app.use(flash());
+app.use((req, res, next) => {
+	res.locals.successMessage = req.flash('success')[0];
+	res.locals.errorMessage = req.flash('error')[0];
+	next();
+});
+
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+	res.locals.currentPath = req.path;
+	next();
+});
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
 	res.render('index');
@@ -29,6 +50,17 @@ app.get('/products', async (req, res) => {
 
 app.get('/products/create', (req, res) => {
 	res.render('create-product');
+});
+
+app.post('/products', async (req, res) => {
+    try {
+		const product = await Product.create(req.body);
+		req.flash('success', 'Product berhasil disimpan');
+		res.redirect(`/products/${product._id}`);
+	} catch (err) {
+		req.flash('error', 'Gagal menyimpan product');
+		res.redirect('/products/create');
+	}
 });
 
 app.get('/products/:id', async (req, res) => {
@@ -48,4 +80,5 @@ app.get('/products/:id', async (req, res) => {
 app.listen(3000, () => {
 	console.log('App is running on http://localhost:3000');
 });
+
 
