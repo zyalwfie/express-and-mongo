@@ -53,7 +53,7 @@ app.get('/products/create', (req, res) => {
 });
 
 app.post('/products', async (req, res) => {
-    try {
+	try {
 		const product = await Product.create(req.body);
 		req.flash('success', 'Product berhasil disimpan');
 		res.redirect(`/products/${product._id}`);
@@ -61,6 +61,11 @@ app.post('/products', async (req, res) => {
 		req.flash('error', 'Gagal menyimpan product');
 		res.redirect('/products/create');
 	}
+});
+
+app.get('/products/:id/edit', async (req, res) => {
+	const product = await Product.findById(req.params.id);
+	res.render('edit-product.ejs', { product: product });
 });
 
 app.get('/products/:id', async (req, res) => {
@@ -80,5 +85,4 @@ app.get('/products/:id', async (req, res) => {
 app.listen(3000, () => {
 	console.log('App is running on http://localhost:3000');
 });
-
 

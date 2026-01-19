@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/output.css" />
+  <title>Edit Product</title>
+</head>
+
+<body>
+  <%- include('partials/header.ejs') %>
+
+  <% if (errorMessage) { %>
+  <%- include('partials/error-toast.ejs', {errorMessage: errorMessage}) %>
+  <% } %>
+
+  <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16 mt-18">
+      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+        Edit existing product
+      </h2>
+      <form action="/products" method="post">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="sm:col-span-2">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
+            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nama produk" value="<%= product.name %>" />
+          </div>
+          <div class="w-full">
+            <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
+            <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Merek produk" value="<%= product.brand %>" />
+          </div>
+          <div class="w-full">
+            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Rpxx.xxx.xxx,xx" value="<%= product.price %>" />
+          </div>
+          <div>
+            <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+            <select id="color" name="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+              <option>Pilih warna</option>
+              <option value="red" <%= product.price === 'yellow' ? 'selected' : '' %> >Red</option>
+              <option value="blue" <%= product.price === 'blue' ? 'selected' : '' %> >Blue</option>
+              <option value="green" <%= product.price === 'green' ? 'selected' : '' %> >Green</option>
+              <option value="yellow" <%= product.price === 'yellow' ? 'selected' : '' %> >Yellow</option>
+            </select>
+          </div>
+          <div>
+            <label for="size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+            <select id="size" name="size" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+              <option>Pilih ukuran</option>
+              <option value="s" <%= product.size === 's' ? 'selected' : '' %>>S</option>
+              <option value="m" <%= product.size === 'm' ? 'selected' : '' %>>M</option>
+              <option value="l" <%= product.size === 'l' ? 'selected' : '' %>>L</option>
+              <option value="xl" <%= product.size === 'xl' ? 'selected' : '' %>>Xl</option>
+            </select>
+          </div>
+          <div>
+            <label for="condition" condition class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Condition</label>
+            <input type="text" name="condition" id="condition" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Baru atau bekas" value="<%= product.condition %>"/>
+          </div>
+          <div>
+            <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+            <input type="number" name="stock" id="stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Tentukan stok" value="<%= product.stock %>" />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+            <textarea id="description" rows="8" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Deskripsikan produk di sini"><%= product.condition %></textarea>
+          </div>
+        </div>
+        <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+          Save changes
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <%- include('partials/footer.ejs') %>
+  <script src="/js/flowbite.min.js"></script>
+</body>
+
+</html>
