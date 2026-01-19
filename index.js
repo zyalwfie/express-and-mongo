@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const flash = require('connect-flash');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 const app = express();
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 	next();
 });
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
 	res.render('index');
@@ -82,7 +84,28 @@ app.get('/products/:id', async (req, res) => {
 	}
 });
 
+app.put('/products/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const product = await Product.findByIdAndUpdate(id, req.body, {
+			new: true,
+			runValidators: true,
+		});
+
+		if (!product) {
+			return res.status(404).render('miscellanous');
+		}
+
+		req.flash('success', 'Product berhasil diubah');
+		res.redirect(`/products/${product._id}`);
+	} catch (err) {
+		console.log(err);
+		req.flash('error', 'Gagal mengubah product');
+		res.redirect(`/products/${req.params.id}/edit`);
+	}
+});
+
 app.listen(3000, () => {
 	console.log('App is running on http://localhost:3000');
 });
-

@@ -17,6 +17,7 @@
 		"express": "^5.2.1",
 		"express-session": "^1.18.2",
 		"flowbite": "^4.0.1",
+		"method-override": "^3.0.0",
 		"mongoose": "^9.1.4",
 		"tailwindcss": "^4.1.18"
 	}
